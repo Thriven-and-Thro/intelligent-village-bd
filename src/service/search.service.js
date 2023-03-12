@@ -15,8 +15,15 @@ class SearchService {
   }
 
   // 动态模糊查询
-  async searchArticle(table, record, aid, offset, limit, asc, desc) {
+  async searchArticle(table, record, aid, offset, limit, type, asc, desc) {
     let statement = `SELECT * FROM ${table} WHERE aid=?`
+    const arr = [String(aid)]
+
+    // 有type的情况
+    if (type) {
+      statement += ' AND type=?'
+      arr.push(String(type))
+    }
 
     // 处理时间查询
     for (const key in record) {
@@ -39,7 +46,7 @@ class SearchService {
 
     // post有数字类型，get无类型，此处应该转化为字符串
     return await this.searchOpt(statement, [
-      String(aid),
+      ...arr,
       String(offset),
       String(limit)
     ])
