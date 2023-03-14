@@ -23,7 +23,7 @@ class ArticleService {
     return result[0]
   }
 
-  async createArticle(type, title, content, aid) {
+  async createArticle(type, title, content = '', aid) {
     const statement = `INSERT INTO article (type, title, content, aid) VALUES (?,?,?,?);`
     const result = await connection.execute(statement, [
       type,
@@ -40,7 +40,7 @@ class ArticleService {
     return result
   }
 
-  async updateArticle(id, type, title, content) {
+  async updateArticle(id, type, title, content = '') {
     const statement = `UPDATE article SET type=?, title=?, content=? WHERE art_id=?;`
     const [result] = await connection.execute(statement, [
       type,
