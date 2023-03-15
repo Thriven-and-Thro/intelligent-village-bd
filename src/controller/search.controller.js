@@ -2,7 +2,7 @@ const searchService = require('../service/search.service')
 
 class SearchController {
   async search(ctx, next) {
-    const { table, record, aid, offset, limit, type, asc, desc } =
+    const { table, record, aid, offset, limit, type, art_id, asc, desc } =
       ctx.request.body
     const result = await searchService.searchArticle(
       table,
@@ -11,6 +11,7 @@ class SearchController {
       offset,
       limit,
       type,
+      art_id,
       asc,
       desc
     )

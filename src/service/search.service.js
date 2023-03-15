@@ -15,14 +15,35 @@ class SearchService {
   }
 
   // 动态模糊查询
-  async searchArticle(table, record, aid, offset, limit, type, asc, desc) {
-    let statement = `SELECT * FROM ${table} WHERE aid=?`
-    const arr = [String(aid)]
+  async searchArticle(
+    table,
+    record,
+    aid,
+    offset,
+    limit,
+    type,
+    art_id,
+    asc,
+    desc
+  ) {
+    let statement = `SELECT * FROM ${table}`
+    const arr = []
 
-    // 有type的情况
-    if (type) {
-      statement += ' AND type=?'
-      arr.push(String(type))
+    // 有art_id的情况(comment)
+    if (art_id) {
+      statement += ' WHERE art_id=?'
+      arr.push(String(art_id))
+    }
+    // article、feedback情况
+    else {
+      statement += ' WHERE aid=?'
+      arr.push(String(aid))
+
+      // 有type的情况(article)
+      if (type) {
+        statement += ' AND type=?'
+        arr.push(String(type))
+      }
     }
 
     // 处理时间查询
