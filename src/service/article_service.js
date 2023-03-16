@@ -1,22 +1,6 @@
 const connection = require('../app/database')
-const SearchService = require('./search.service')
 
 class ArticleService {
-  // async getArticleList(offset, limit, type, aid, asc, desc) {
-  //   let statement = `SELECT * FROM article WHERE type=? AND aid=? `
-  //   const params = [type, aid, offset, limit]
-
-  //   if (asc === 'true') {
-  //     statement += `ORDER BY updateTime ASC limit ?,?;`
-  //   } else if (desc === 'true') {
-  //     statement += `ORDER BY updateTime DESC limit ?,?;`
-  //   } else {
-  //     statement += `ORDER BY art_id limit ?,?;`
-  //   }
-
-  //   return await SearchService.searchOpt(statement, params)
-  // }
-
   async getArticleDetail(id) {
     const statement = `SELECT * FROM article WHERE art_id=?;`
     const [result] = await connection.execute(statement, [id])
