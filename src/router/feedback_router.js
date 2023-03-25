@@ -13,6 +13,6 @@ const feedbackRouter = new Router({ prefix: '/feedback' })
 feedbackRouter.get('/', verifyAuth, list)
 feedbackRouter.post('/', verifyAuth, create)
 feedbackRouter.delete('/:feedback', verifyAuth, remove)
-feedbackRouter.patch('/:feedback', verifyAuth, update)
+feedbackRouter.post('/:feedback', verifyAuth, update)
 
 module.exports = feedbackRouter

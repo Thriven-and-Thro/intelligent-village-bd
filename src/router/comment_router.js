@@ -13,6 +13,6 @@ const commentRouter = new Router({ prefix: '/comment' })
 commentRouter.get('/', list)
 commentRouter.post('/', verifyAuth, create)
 commentRouter.delete('/:comment', verifyAuth, remove)
-commentRouter.patch('/:comment', verifyAuth, update)
+commentRouter.post('/:comment', verifyAuth, update)
 
 module.exports = commentRouter

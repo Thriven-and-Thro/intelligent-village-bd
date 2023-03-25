@@ -19,7 +19,7 @@ articleRouter.get('/', list)
 articleRouter.get('/:article', detail)
 articleRouter.post('/', verifyAuth, create)
 articleRouter.delete('/:article', verifyAuth, remove)
-articleRouter.patch('/:article', verifyAuth, update)
+articleRouter.post('/:article', verifyAuth, update)
 
 articleRouter.post('/:article/img', verifyAuth, pictureHander, pictureResize)
 

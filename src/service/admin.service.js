@@ -11,6 +11,12 @@ class AdminService {
     const [result] = await connection.execute(statement, [name])
     return result[0]
   }
+
+  async getAreaId(area) {
+    const statement = `SELECT * FROM area WHERE name=?`
+    const [result] = await connection.execute(statement, [area])
+    return result[0]
+  }
 }
 
 module.exports = new AdminService()
