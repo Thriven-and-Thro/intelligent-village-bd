@@ -17,6 +17,18 @@ class SearchController {
     )
     ctx.body = result
   }
+
+  async hot(ctx, next) {
+    const { aid } = ctx.request.query
+    const result = await searchService.getArticleHot(aid)
+    ctx.body = result
+  }
+
+  async recommend(ctx, next) {
+    const { aid } = ctx.request.query
+    const result = await searchService.getArticleRecommend(aid)
+    ctx.body = result
+  }
 }
 
 module.exports = new SearchController()

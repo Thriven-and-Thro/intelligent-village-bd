@@ -72,6 +72,23 @@ class SearchService {
       String(limit)
     ])
   }
+
+  async getArticleHot(aid) {
+    const statement = `SELECT comment.art_id, count(*) FROM comment
+    LEFT JOIN article ON article.art_id=comment.art_id
+    WHERE aid=?
+    GROUP BY art_id
+    ORDER BY count(*)
+    DESC LIMIT 0,5;`
+    const [result] = await connection.execute(statement, [aid])
+    return result
+  }
+
+  async getArticleRecommend(aid) {
+    const statement = `SELECT * FROM article WHERE aid=? ORDER BY updateTime DESC LIMIT 0,5;`
+    const [result] = await connection.execute(statement, [aid])
+    return result
+  }
 }
 
 module.exports = new SearchService()
