@@ -57,9 +57,9 @@ class SearchService {
 
     const id = `${table.slice(0, 3)}_id`
 
-    if (asc === 'true') {
+    if (asc) {
       statement += ` ORDER BY updateTime ASC`
-    } else if (desc === 'true') {
+    } else if (desc) {
       statement += ` ORDER BY updateTime DESC`
     } else {
       statement += ` ORDER BY ${id}`

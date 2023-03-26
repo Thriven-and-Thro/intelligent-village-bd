@@ -1,6 +1,24 @@
 const userService = require('../service/user.service')
 
 class UserController {
+  async detail(ctx, next) {
+    const userId = ctx.params.user
+    const result = await userService.getUserDetail(userId)
+    ctx.body = result
+  }
+
+  async myComment(ctx, next) {
+    const userId = ctx.params.user
+    const result = await userService.getUserComment(userId)
+    ctx.body = result
+  }
+
+  async myFeedback(ctx, next) {
+    const userId = ctx.params.user
+    const result = await userService.getUserFeedback(userId)
+    ctx.body = result
+  }
+
   async create(ctx, next) {
     const { name, password } = ctx.request.body
     const result = await userService.createUser(name, password)

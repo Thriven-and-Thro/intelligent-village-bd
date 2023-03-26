@@ -1,19 +1,10 @@
 const connection = require('../app/database')
-const SearchService = require('./search.service')
 
 class FeedbackService {
-  async getFeedbackList(aid, offset, limit, asc, desc) {
-    let statement = `SELECT * FROM feedback WHERE aid=? `
-
-    if (asc === 'true') {
-      statement += `ORDER BY updateTime ASC limit ?,?;`
-    } else if (desc === 'true') {
-      statement += `ORDER BY updateTime DESC limit ?,?;`
-    } else {
-      statement += `ORDER BY fee_id limit ?,?;`
-    }
-
-    return await SearchService.searchOpt(statement, [aid, offset, limit])
+  async getFeedbackDetail(id) {
+    let statement = `SELECT * FROM feedback WHERE fee_id=? `
+    const [result] = await connection.execute(statement, [id])
+    return result
   }
 
   async createFeedback(

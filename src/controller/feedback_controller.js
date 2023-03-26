@@ -1,11 +1,11 @@
 const feedbackService = require('../service/feedback_service')
 
 class FeedbackController {
-  async list(ctx, next) {
-    const { aid, offset, limit } = ctx.request.query
-    const result = await feedbackService.getFeedbackList(aid, offset, limit)
+  async detail(ctx, next) {
+    const feedbackId = ctx.params.feedback
+    const result = await feedbackService.getFeedbackDetail(feedbackId)
 
-    ctx.body = result
+    ctx.body = result[0]
   }
 
   async create(ctx, next) {

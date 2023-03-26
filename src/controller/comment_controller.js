@@ -1,25 +1,9 @@
 const commentService = require('../service/comment_service')
 
 class CommentController {
-  async list(ctx, next) {
-    const { aid, art_id, offset, limit } = ctx.request.query
-    const result = await commentService.getCommentList(
-      aid,
-      art_id,
-      offset,
-      limit
-    )
-    ctx.body = result
-  }
-
   async create(ctx, next) {
-    const { content, art_id, user_id, aid } = ctx.request.body
-    const result = await commentService.createComment(
-      content,
-      art_id,
-      user_id,
-      aid
-    )
+    const { content, art_id, user_id } = ctx.request.body
+    const result = await commentService.createComment(content, art_id, user_id)
     ctx.body = result ? 'success' : 'error'
   }
 

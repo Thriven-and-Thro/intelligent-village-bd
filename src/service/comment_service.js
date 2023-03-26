@@ -1,13 +1,12 @@
 const connection = require('../app/database')
 
 class CommentService {
-  async createComment(content, art_id, user_id, aid) {
-    const statement = `INSERT INTO comment (content, art_id, user_id,aid) VALUES (?,?,?,?);`
+  async createComment(content, art_id, user_id) {
+    const statement = `INSERT INTO comment (content, art_id, user_id) VALUES (?,?,?);`
     const result = await connection.execute(statement, [
       content,
       art_id,
-      user_id,
-      aid
+      user_id
     ])
     return result
   }
