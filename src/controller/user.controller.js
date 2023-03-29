@@ -31,6 +31,13 @@ class UserController {
     const result = await userService.updateUser(userId, password, mail, phone)
     ctx.body = result.affectedRows ? 'success' : 'error'
   }
+
+  async picture(ctx, next) {
+    const userId = ctx.params.user
+    const avatar = ctx.request.body.avatar.split('\\').join('/')
+    const result = await userService.setPicture(avatar, userId)
+    ctx.body = result.affectedRows ? 'success' : 'error'
+  }
 }
 
 module.exports = new UserController()

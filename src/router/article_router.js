@@ -1,5 +1,4 @@
 const Router = require('koa-router')
-
 const { verifyAuth } = require('../middleware/admin.middleware')
 const {
   list,
@@ -20,7 +19,5 @@ articleRouter.get('/:article', detail)
 articleRouter.post('/', verifyAuth, create)
 articleRouter.delete('/:article', verifyAuth, remove)
 articleRouter.post('/:article', verifyAuth, update)
-
-articleRouter.post('/:article/img', verifyAuth, pictureHander, pictureResize)
 
 module.exports = articleRouter

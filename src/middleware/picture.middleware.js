@@ -1,36 +1,31 @@
-const path = require('path')
+const fs = require('fs')
 const Jimp = require('jimp')
-const Multer = require('koa-multer')
+const multer = require('@koa/multer')
 
-const { PICTURE_PATH } = require('../constants/file-path')
-const deletePicture = require('../../uploads/deletePicture-handle')
-
-const storage = Multer.diskStorage({
+const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, PICTURE_PATH)
+    cb(null, './upload') //文件存储目录，注意必须存在该目录，否则报错
   },
   filename: function (req, file, cb) {
-    cb(
-      null,
-      file.originalname.slice(0, -path.extname(file.originalname).length)
-    )
+    const path = req.url.split('/').join('') + Date.now() + '.jpg'
+    cb(null, path) //定义文件名
   }
 })
-const upload = Multer({
+
+const upload = multer({
   storage
 })
 
-const pictureHander = upload.single('picture')
+const pictureHander = upload.single('avatar')
 
 const pictureResize = async (ctx, next) => {
-  const id = ctx.params.article
-  const file = ctx.req.file
-  const destPath = path.join(file.destination, id, file.filename)
+  const file = ctx.file
   Jimp.read(file.path).then((image) => {
-    image.resize(1280, Jimp.AUTO).write(`${destPath}-large.png`)
-    image.resize(640, Jimp.AUTO).write(`${destPath}-middle.png`)
-    image.resize(320, Jimp.AUTO).write(`${destPath}-small.png`)
+    image.resize(320, Jimp.AUTO).write(`${file.path}-lg.jpg`)
+    image.resize(128, Jimp.AUTO).write(`${file.path}-sm.jpg`)
   })
+  ctx.request.body.avatar = file.path
+  next()
 }
 
 module.exports = {

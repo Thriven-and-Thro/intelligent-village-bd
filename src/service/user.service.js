@@ -1,5 +1,7 @@
 const connection = require('../app/database')
 const md5password = require('../utils/password-handles')
+const fs = require('fs')
+const path = require('path')
 
 class UserService {
   async getUserDetail(userId) {
@@ -37,6 +39,25 @@ class UserService {
       phone,
       id
     ])
+    return result
+  }
+
+  async setPicture(avatar, id) {
+    const [oldMes] = await connection.execute(
+      `SELECT avatar FROM user WHERE user_id=?`,
+      [id]
+    )
+    const filePath = path.join(__dirname, '..', '..', `${oldMes[0].avatar}`)
+    const exist = fs.existsSync(filePath)
+
+    if (exist) {
+      fs.unlinkSync(filePath)
+      fs.unlinkSync(filePath + '-lg.jpg')
+      fs.unlinkSync(filePath + '-sm.jpg')
+    }
+
+    const statement = `UPDATE user SET avatar=? WHERE user_id=?;`
+    const [result] = await connection.execute(statement, [avatar, id])
     return result
   }
 }
