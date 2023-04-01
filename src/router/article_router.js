@@ -7,10 +7,6 @@ const {
   remove,
   update
 } = require('../controller/article_controller')
-const {
-  pictureHander,
-  pictureResize
-} = require('../middleware/picture.middleware')
 
 const articleRouter = new Router({ prefix: '/article' })
 

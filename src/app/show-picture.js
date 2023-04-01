@@ -2,7 +2,7 @@ const mime = require('mime-types')
 const path = require('path')
 const fs = require('fs')
 
-const pictureHandler = async (ctx) => {
+const showPicture = async (ctx) => {
   let filePath = path.join(__dirname, '..', '..', ctx.url) //图片地址
   let file = null
   try {
@@ -19,4 +19,4 @@ const pictureHandler = async (ctx) => {
   ctx.body = file //返回图片
 }
 
-module.exports = pictureHandler
+module.exports = showPicture
