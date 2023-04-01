@@ -47,13 +47,16 @@ class UserService {
       `SELECT avatar FROM user WHERE user_id=?`,
       [id]
     )
-    const filePath = path.join(__dirname, '..', '..', `${oldMes[0].avatar}`)
-    const exist = fs.existsSync(filePath)
 
-    if (exist) {
-      fs.unlinkSync(filePath)
-      fs.unlinkSync(filePath + '-lg.jpg')
-      fs.unlinkSync(filePath + '-sm.jpg')
+    if (oldMes[0].avatar) {
+      const filePath = path.join(__dirname, '..', '..', `${oldMes[0].avatar}`)
+      const exist = fs.existsSync(filePath)
+
+      if (exist) {
+        fs.unlinkSync(filePath)
+        fs.unlinkSync(filePath + '-lg.jpg')
+        fs.unlinkSync(filePath + '-sm.jpg')
+      }
     }
 
     const statement = `UPDATE user SET avatar=? WHERE user_id=?;`
