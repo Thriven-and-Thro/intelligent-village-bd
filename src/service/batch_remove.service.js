@@ -19,6 +19,7 @@ class BatchRemoveService {
       statement,
       items.map((v) => String(v))
     )
+
     return result
   }
 }
